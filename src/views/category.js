@@ -41,7 +41,7 @@ class Category extends Component {
     }
     render(){
         return (
-            <div className="text-center">
+            <div className="text-center container">
                 <h1 className="pt-4">Trending in {this.state.param}, today.</h1>
                 {this.state.fetched ? 
                 <div className="row pt-5">
