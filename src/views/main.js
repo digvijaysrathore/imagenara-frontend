@@ -13,6 +13,8 @@ class Main extends Component {
             keyword: "",
             colors: "",
             orientation: "",
+            type: "",
+            choice: false,
             err: false,
             success: false,
             processing: false,
@@ -25,6 +27,86 @@ class Main extends Component {
     handleChange = (e) => {
         this.setState({
             [e.target.id]: e.target.value
+        })
+    }
+
+    handleSelection = (e) => {
+        this.setState({
+            [e.target.id]: e.target.value,
+            processing: true
+        })
+        axios.post("https://imagenara.herokuapp.com/type", this.state)
+        .then((response) => {
+            console.log(response)
+            const result = response.data.err
+            this.setState({
+                processing: false
+            })
+            if(result !== undefined){
+                this.setState({
+                    err: true,
+                    success: false,
+                    images: []
+                })
+                console.log("Err!")
+            } else {
+                let tempArray = []
+                for(var i = 0; i < response.data.length; i++){
+                    tempArray.push(response.data[i].urls.thumb)
+                    console.log(response.data[i].urls.thumb)
+                }
+                this.setState({
+                    images: tempArray
+                })
+                this.setState({
+                    success: true,
+                    err: false
+                })
+                console.log("Success!")
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+
+    handleChoice = (e) => {
+        this.setState({
+            [e.target.id]: e.target.value,
+            processing: true
+        })
+        axios.post("https://imagenara.herokuapp.com/choice", this.state)
+        .then((response) => {
+            console.log(response)
+            const result = response.data.err
+            this.setState({
+                processing: false
+            })
+            if(result !== undefined){
+                this.setState({
+                    err: true,
+                    success: false,
+                    images: []
+                })
+                console.log("Err!")
+            } else {
+                let tempArray = []
+                for(var i = 0; i < response.data.length; i++){
+                    tempArray.push(response.data[i].urls.thumb)
+                    console.log(response.data[i].urls.thumb)
+                }
+                this.setState({
+                    images: tempArray
+                })
+                this.setState({
+                    success: true,
+                    err: false
+                })
+                console.log("Success!")
+            }
+        })
+        .catch((err) => {
+            console.log(err)
         })
     }
 
@@ -108,6 +190,25 @@ class Main extends Component {
                         <button className="btn btn-dark" type="submit">Get Images</button>
                     </form>
 
+                    <hr />
+
+                    <form className="mt-5">
+                    <div className="input-group mb-3">
+                        <select onChange={this.handleSelection} className="custom-select" id="type">
+                            <option selected>Type Of Image</option>
+                            <option value="illustration">Illustration</option>
+                            <option value="vector">Vector</option>
+                            <option value="photo">Photo</option>
+                        </select>
+                        <div className="input-group-append">
+                            <label className="input-group-text" for="color">Select Type</label>
+                        </div>
+                        </div>
+                        <div class="input-group-text-2 ml-3">
+                        <input onChange={this.handleChoice} type="checkbox" id="choice" value="true" />
+                        <label className="ml-2" for="choice">Editor's Choice</label>
+                        </div>
+                    </form>
                     {this.state.processing ? <div className="text-center"><LoadingOutlined /></div> : <div></div>}
 
                     <section className="container pt-5">
