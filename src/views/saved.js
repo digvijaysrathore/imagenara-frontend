@@ -40,6 +40,19 @@ class Saved extends Component {
         window.location.replace("/")
     }
 
+    download = (e) => {
+    var element = document.createElement("a");
+    var file = new Blob(
+      [
+        e
+      ],
+      { type: "image/*" }
+    );
+    element.href = URL.createObjectURL(file);
+    element.download = "imagenara.jpg";
+    element.click();
+  };
+
     render(){
         return (
             <div className="container text-center pt-4">
@@ -52,7 +65,7 @@ class Saved extends Component {
                     {this.state.images.map((item, index) => {
                         return (
                             <div className="column">
-                                <a href={item} onClick={()=>this.save(item)} download="imagenara"><img src={item} alt="" /></a>
+                                <a href={item} target="_blank" onClick={() => this.download(item)} download="imagenara"><img src={item} alt="" /></a>
                             </div>
                         )
                     })}
