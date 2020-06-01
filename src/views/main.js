@@ -161,6 +161,7 @@ class Main extends Component {
         return (
             <div className="main">
                 <section className="container p-5 text-left">
+                    <p>Type a keyword and customize your image search. Editor's choice and image type can be altered after the search. Click on any image to save it in "Saved" tab.</p>
                     <form onSubmit={this.handleSubmit} >   
                         <div className="input-group mb-3">
                         <div className="input-group-prepend">

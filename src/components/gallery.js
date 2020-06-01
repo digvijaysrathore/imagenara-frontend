@@ -17,6 +17,7 @@ class Gallery extends Component {
     componentDidMount = () => {
         axios.get("https://imagenara.herokuapp.com/pictures")
         .then(response => {
+            console.log(response.data)
             let tempArray = []
             for(var i = 0; i < response.data.length; i++){
                 tempArray.push(response.data[i].previewURL)

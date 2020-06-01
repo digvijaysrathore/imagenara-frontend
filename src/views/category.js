@@ -41,8 +41,8 @@ class Category extends Component {
     }
     render(){
         return (
-            <div className="text-center container">
-                <h1 className="pt-4">Trending in {this.state.param}, today.</h1>
+            <div className="text-left container">
+                <p className="pt-4">Trending in <span className="text-primary">{this.state.param}</span>, today. Click on the image to save it.</p>
                 {this.state.fetched ? 
                 <div className="row pt-5">
                     {this.state.images.map((item, index) => {

@@ -55,9 +55,8 @@ class Saved extends Component {
 
     render(){
         return (
-            <div className="container text-center pt-4">
-                <h1>Here are your saved images.</h1>
-                <h2>Click on them to download!</h2>
+            <div className="container text-left pt-4">
+                <p>Click on the image to download or tap "Clear saved" to start a new search.</p>
                 <button className="btn mb-4 btn-primary" onClick={this.clear}>Clear Saved</button>
                 {this.state.fetched ? 
                 <div className="row">
